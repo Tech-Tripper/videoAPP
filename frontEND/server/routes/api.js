@@ -35,6 +35,7 @@ router.get("/videos/:id", function(req, res) {
   });
 });
 
+//Posting a video to the DB
 router.post("/video", function(req, res) {
   console.log("Post a video");
   var newVideo = new Video();
@@ -46,6 +47,43 @@ router.post("/video", function(req, res) {
       console.log("Error saving video");
     } else {
       res.json(insertedVideo);
+    }
+  });
+});
+
+//Updating a video infor
+router.put("/video/:id", function(req, res) {
+  console.log("Updating a video");
+  Video.findOneAndUpdate(
+    req.params.id,
+    {
+      $set: {
+        title: req.body.title,
+        url: req.body.url,
+        description: req.body.description
+      }
+    },
+    {
+      new: true,
+      useFindAndModify: false
+    },
+    function(err, updatedVideo) {
+      if (err) {
+        res.send("Error updating Video");
+      } else {
+        res.json(updatedVideo);
+      }
+    }
+  );
+});
+
+router.delete("/video/:id", function(req, res) {
+  console.log("Deleting a Video");
+  Video.findOneAndDelete(req.params.id, function(err, deletedVideo) {
+    if (err) {
+      res.send("Error deleting video");
+    } else {
+      res.json(deletedVideo);
     }
   });
 });
