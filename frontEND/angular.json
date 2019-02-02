@@ -24,8 +24,10 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/styles.scss",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+              {
+                "input": "./node_modules/bootstrap3/dist/css/bootstrap.min.css"
+              },
+              "src/styles.scss"
             ],
             "scripts": []
           },
